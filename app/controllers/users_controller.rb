@@ -1,9 +1,5 @@
 class UsersController < ApplicationController
-
-  def show
-    @ideas = current_user.ideas.all
-  end
-
+  
   def new
     @user = User.new
   end

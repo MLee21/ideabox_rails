@@ -3,8 +3,9 @@ require 'rails_helper'
 feature "user logs in" do 
   
  before(:each) do 
+    category = Category.create(name: "My category")
     user = User.create({first_name: "John", last_name: "Smith", email: "JD20@hotmail.com", password: "123", password_confirmation: "123", role: 0})
-    user.ideas.create(title: "My Idea", description: "My description")
+    ideas = user.ideas.create(title: "My Idea", description: "My description", category_id: category.id)
     visit login_path
     fill_in "Email", with: "JD20@hotmail.com"
     fill_in "Password", with: "123"
@@ -15,6 +16,7 @@ feature "user logs in" do
     click_button "Create New Idea"
     fill_in "Title", with: "My Idea"
     fill_in "Description", with: "My description"
+    select('My category', :from => 'idea[category_id]')
     click_button "Submit"
     expect(page).to have_content("My Idea")
     expect(page).to have_content("My description")
@@ -30,6 +32,16 @@ end
 
 feature "user creates an idea" do 
 
+  before(:each) do 
+    category = Category.create(name: "My category")
+    user = User.create({first_name: "John", last_name: "Smith", email: "JD20@hotmail.com", password: "123", password_confirmation: "123", role: 0})
+    ideas = user.ideas.create(title: "My Idea", description: "My description", category_id: category.id)
+    visit login_path
+    fill_in "Email", with: "JD20@hotmail.com"
+    fill_in "Password", with: "123"
+    click_button "Login"
+  end
+
   scenario "with valid attributes" do 
     user = User.create({first_name: "John", last_name: "Smith", email: "JD20@hotmail.com", password: "123", password_confirmation: "123", role: 0})
     visit login_path
@@ -40,6 +52,7 @@ feature "user creates an idea" do
     click_button "Create New Idea"
     fill_in "Title", with: "My Idea"
     fill_in "Description", with: "My description"
+    select('My category', :from => 'idea[category_id]')
     click_button "Submit"
     expect(page).to have_content("My Idea")
     expect(page).to have_content("My description")

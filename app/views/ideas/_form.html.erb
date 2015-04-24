@@ -5,7 +5,8 @@
 
 <p><%= f.label :description %></p>
 <p><%= f.text_field :description %></p>
-
+<p><%= f.label :categories %></p>
+<p><%= f.collection_select(:category_id, Category.all, :id, :name) %></p>
 <p><%= f.submit "Submit" %></p>
 
 <% end %>

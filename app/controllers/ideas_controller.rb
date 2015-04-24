@@ -13,7 +13,8 @@ class IdeasController < ApplicationController
   end
 
   def create
-    @idea = current_user.ideas.new(idea_params)
+    category = Category.find(idea_params[:category_id])
+    @idea = current_user.ideas.new(idea_params.merge(category_id: category.id))
     if @idea.save
       flash[:notice] = "Idea was successfully created"
       redirect_to user_path(@idea)
@@ -37,9 +38,15 @@ class IdeasController < ApplicationController
     end
   end
 
+  def destroy
+    @idea = current_user.ideas.find(params[:id])
+    @idea.destroy
+    redirect_to user_path(@idea)
+  end
+
   private
 
   def idea_params
-    params.require(:idea).permit(:title, :description)
+    params.require(:idea).permit(:title, :description, :category_id)
   end
 end

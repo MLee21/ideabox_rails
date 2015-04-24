@@ -3,8 +3,10 @@
 <h3>Your Brilliant Ideas</h3>
 <%= button_to "Create New Idea", new_idea_path, method: :get %>
 
- <% current_user.ideas.each do |idea| %>
+<% current_user.ideas.each do |idea| %>
+  <p><%= idea.category.name %></p>
    <p><%= idea.title %></p>
   <p><%= idea.description %></p>
   <p><%= link_to "Edit", edit_idea_path(idea) %></p>
+  <p class="delete"><%= link_to "Delete", idea_path(idea), method: :delete %></p>
 <% end %>
