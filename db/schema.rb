@@ -11,13 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150425003158) do
+ActiveRecord::Schema.define(version: 20150425191447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "idea_images", force: :cascade do |t|
+    t.integer "image_id"
+    t.integer "idea_id"
   end
 
   create_table "ideas", force: :cascade do |t|
@@ -33,7 +38,11 @@ ActiveRecord::Schema.define(version: 20150425003158) do
   add_index "ideas", ["user_id"], name: "index_ideas_on_user_id", using: :btree
 
   create_table "images", force: :cascade do |t|
-    t.string "title"
+    t.string   "title"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
   end
 
   create_table "users", force: :cascade do |t|

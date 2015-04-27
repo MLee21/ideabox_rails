@@ -7,6 +7,9 @@
 <p><%= f.text_field :description %></p>
 <p><%= f.label :categories %></p>
 <p><%= f.collection_select(:category_id, Category.all, :id, :name) %></p>
+<% @images.each do |image| %>
+<p><%= label_tag "idea_image_ids#{image.id}", image_tag(image.attachment.url) %></p>
+<p class="image"><%= check_box_tag "idea[image_ids][]", image.id, false, {id: "idea_image_ids#{image.id}"} %> </p> 
+<% end %>
 <p><%= f.submit "Submit" %></p>
-
 <% end %>

@@ -11,8 +11,9 @@ feature "An admin creates an image" do
   scenario "successfully" do 
     click_button "Create New Image"
     fill_in "image[title]", with: "New Image"
-    page.attach_file('image[avatar]', Rails.root + 'spec/images/landscape-113.jpg')
+    page.attach_file('image[attachment]', Rails.root + 'spec/images/landscape-113.jpg')
     click_button "Submit"
     expect(page).to have_content("Image was successfully uploaded")
+    # expect(page).to have_css("img[src = ""]")
   end
 end

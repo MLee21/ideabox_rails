@@ -1,5 +1,6 @@
 <% @images.each do |image| %>
-<p><%= image_tag image.url %></p>
+<p><%= image_tag image.id %></p>
+<p><%= button_to "Delete", admin_image_path(image), method: :delete %></p>
 <% end %>
 
 <%= button_to "Create New Image", new_admin_image_path, method: :get %>

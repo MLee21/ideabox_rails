@@ -60,7 +60,7 @@ feature "user logs out" do
     click_button "Login"
     expect(page).to have_content("Welcome, John!")
 
-    click_link "Logout"
+    click_button "Logout"
     expect(page).to have_content("Successfully logged out")
   end
 end

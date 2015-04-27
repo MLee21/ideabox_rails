@@ -23,9 +23,15 @@ class Admin::ImagesController < Admin::BaseController
     end
   end
 
+  def destroy
+    @image = Image.find(params[:id])
+    @image.destroy
+    redirect_to admin_image_path
+  end
+
   private
 
   def image_params
-    params.require(:image).permit(:title)
+    params.require(:image).permit(:title, :attachment)
   end
 end

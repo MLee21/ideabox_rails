@@ -7,6 +7,9 @@
   <p><%= idea.category.name %></p>
    <p><%= idea.title %></p>
   <p><%= idea.description %></p>
+    <% idea.images.each do |image| %>
+    <%= image_tag(image.attachment.url) %>
+    <% end %>
   <p><%= link_to "Edit", edit_idea_path(idea) %></p>
   <p class="delete"><%= link_to "Delete", idea_path(idea), method: :delete %></p>
 <% end %>
